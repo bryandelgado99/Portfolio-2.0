@@ -1,0 +1,47 @@
+---
+import { languages } from '../i18n/ui';
+import { getLangFromUrl, getPathWithoutLang } from '../i18n/utils';
+
+const currentLang = getLangFromUrl(Astro.url);
+const currentPath = getPathWithoutLang(Astro.url);
+
+// Usando country-flag-icons
+const supportedLanguages = {
+    'es': { label: languages.es, flag: 'ES' },
+    'en': { label: languages.en, flag: 'US' }
+};
+---
+
+<ul class="flex items-center space-x-2">
+    {Object.entries(supportedLanguages).map(([lang, config]) => {
+        const href = currentPath ? `/${lang}/${currentPath}` : `/${lang}`;
+        const isActive = currentLang === lang;
+
+        return (
+                <li class="inline-flex">
+                    <a
+                            href={href}
+                            class={`
+                        inline-flex items-center justify-center
+                        w-8 h-8 rounded-full
+                        transition-all duration-200
+                        hover:scale-110 hover:shadow-md
+                        ${isActive
+                                ? 'bg-sage-200 dark:bg-sage-700 ring-2 ring-sage-400 dark:ring-sage-500 shadow-sm'
+                                : 'hover:bg-sage-100 dark:hover:bg-sage-800'
+                            }
+                    `}
+                            title={config.label}
+                            aria-label={`Cambiar idioma a ${config.label}`}
+                    >
+                        <img
+                                src={`https://flagcdn.com/w20/${config.flag.toLowerCase()}.png`}
+                                alt={`Bandera de ${config.label}`}
+                                class="w-4 h-3 rounded-sm object-cover"
+                                loading="lazy"
+                        />
+                    </a>
+                </li>
+        )
+    })}
+</ul>

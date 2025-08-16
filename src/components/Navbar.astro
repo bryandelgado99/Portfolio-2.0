@@ -1,0 +1,116 @@
+---
+import LanguagePicker from "./LanguagePicker.astro";
+import {Menu, House, UserStar, X, BriefcaseBusiness, Globe} from '@lucide/astro';
+import {getLangFromUrl, useTranslations} from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<!--Burguer Menu Mobile-->
+<button
+        id="mobileMenuButton"
+        class="md:hidden fixed top-6 right-4 z-50 p-2 bg-sage-50 dark:bg-sage-900 border border-sage-200 dark:border-sage-800 rounded-lg shadow-lg cursor-pointer hover:shadow-xl hover:bg-sage-100 dark:hover:bg-sage-800 transition-all duration-200"
+>
+    <Menu class="w-6 h-6 text-sage-700 dark:text-sage-300"/>
+</button>
+
+<!--Navbar-->
+<nav class="w-full bg-sage-50 dark:bg-sage-950 shadow-sm border-b border-sage-200 dark:border-sage-800 px-4 md:px-6 lg:px-8 py-8">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <!--Logo-->
+        <div class="flex-shrink-0">
+            <span class="text-xl md:text-2xl font-bold text-sage-950 dark:text-sage-100 hover:text-sage-600 dark:hover:text-sage-200 transition-colors duration-200">
+                logo
+            </span>
+        </div>
+
+        <!--Items-->
+        <ul class="hidden md:flex items-center space-x-6 lg:space-x-8 flex-1 justify-center">
+            <li class="inline-flex justify-center items-center gap-x-3"><House size="16"/> {t("nav.home")}</li>
+            <li class="inline-flex justify-center items-center gap-x-3"><UserStar size="16"/> {t("nav.about")}</li>
+            <li class="inline-flex justify-center items-center gap-x-3"><BriefcaseBusiness size="16"/> {t("nav.portfolio")}</li>
+            <li class="inline-flex justify-center items-center gap-x-3"><Globe size="16"/> {t("nav.contact")}</li>
+        </ul>
+
+        <!--Language Picker - Solo desktop-->
+        <div class="hidden md:block flex-shrink-0">
+            <LanguagePicker/>
+        </div>
+    </div>
+</nav>
+
+<!--Mobile Menu Overlay-->
+<div
+        id="mobileMenuOverlay"
+        class="md:hidden fixed inset-0 z-40 bg-sage-950 bg-opacity-50 backdrop-blur-sm opacity-0 invisible transition-all duration-300 ease-in-out"
+>
+    <div
+            id="mobileMenuSidebar"
+            class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-sage-50 dark:bg-sage-900 border-l border-sage-200 dark:border-sage-800 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out"
+    >
+        <div class="p-6 pt-16 bg-gradient-to-b from-sage-50 to-sage-100 dark:from-sage-900 dark:to-sage-950 h-full">
+
+            <!--Mobile Menu Items-->
+            <ul class="flex flex-col justify-center items-start space-y-8 mb-8">
+                <li class="inline-flex place-content-center gap-x-3"><House size="24"/> {t("nav.home")}</li>
+                <li class="inline-flex place-content-center gap-x-3"><UserStar size="24"/> {t("nav.about")}</li>
+                <li class="inline-flex place-content-center gap-x-3"><BriefcaseBusiness size="24"/> {t("nav.portfolio")}</li>
+                <li class="inline-flex place-content-center gap-x-3"><Globe size="24"/> {t("nav.contact")}</li>
+            </ul>
+
+            <!-- Language Picker en móvil -->
+            <div class="border-t border-sage-200 dark:border-sage-700 pt-6">
+                <h3 class="text-sm font-medium text-sage-600 dark:text-sage-400 mb-3">{t("lang")}</h3>
+                <LanguagePicker/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Styles not Tailwind-->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const mobileMenuSidebar = document.getElementById('mobileMenuSidebar');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+
+        function openMobileMenu() {
+            mobileMenuOverlay?.classList.remove('opacity-0', 'invisible');
+            mobileMenuOverlay?.classList.add('opacity-100', 'visible');
+            mobileMenuSidebar?.classList.remove('translate-x-full');
+            mobileMenuSidebar?.classList.add('translate-x-0');
+            document.body.style.overflow = 'hidden'; // Prevenir scroll
+        }
+
+        function closeMobileMenuFn() {
+            mobileMenuOverlay?.classList.add('opacity-0', 'invisible');
+            mobileMenuOverlay?.classList.remove('opacity-100', 'visible');
+            mobileMenuSidebar?.classList.add('translate-x-full');
+            mobileMenuSidebar?.classList.remove('translate-x-0');
+            document.body.style.overflow = ''; // Restaurar scroll
+        }
+
+        // Abrir menú
+        mobileMenuButton?.addEventListener('click', openMobileMenu);
+
+        // Cerrar menú - botón X
+        closeMobileMenu?.addEventListener('click', closeMobileMenuFn);
+
+        // Cerrar menú - click en overlay
+        mobileMenuOverlay?.addEventListener('click', function(e) {
+            if (e.target === mobileMenuOverlay) {
+                closeMobileMenuFn();
+            }
+        });
+
+        // Cerrar menú con ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeMobileMenuFn();
+            }
+        });
+    });
+</script>

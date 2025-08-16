@@ -9,6 +9,19 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.12.9"
+    "@astrojs/react": "^4.3.0",
+    "@astrojs/tailwind": "^6.0.2",
+    "@lucide/astro": "^0.539.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "astro": "^5.13.2",
+    "astro-i18n": "^2.2.4",
+    "country-flag-icons": "^1.5.19",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "tailwindcss": "3.4.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2"
   }
 }
