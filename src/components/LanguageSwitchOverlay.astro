@@ -1,0 +1,220 @@
+---
+// LanguageSwitchOverlay.astro
+---
+
+<div id="language-overlay" class="language-overlay">
+    <div class="overlay-content">
+        <div class="flag-container">
+            <div class="flag-icon" id="overlay-flag"></div>
+        </div>
+        <div class="loading-text" id="overlay-text">Cambiando idioma...</div>
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .language-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .language-overlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .overlay-content {
+        text-align: center;
+        color: white;
+        transform: translateY(20px);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .language-overlay.show .overlay-content {
+        transform: translateY(0);
+    }
+
+    .flag-container {
+        margin-bottom: 2rem;
+        position: relative;
+    }
+
+    .flag-icon {
+        font-size: 4rem;
+        line-height: 1;
+        display: inline-block;
+        animation: flagPulse 2s ease-in-out infinite;
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+    }
+
+    @keyframes flagPulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+    }
+
+    .loading-text {
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        letter-spacing: 0.025em;
+    }
+
+    .loading-spinner {
+        display: flex;
+        justify-content: center;
+    }
+
+    .spinner {
+        width: 32px;
+        height: 32px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-top: 3px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Tema oscuro por defecto, pero adaptable */
+    @media (prefers-color-scheme: light) {
+        .language-overlay {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .overlay-content {
+            color: #1f2937;
+        }
+
+        .spinner {
+            border: 3px solid rgba(31, 41, 55, 0.3);
+            border-top: 3px solid #1f2937;
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+        .flag-icon {
+            font-size: 3rem;
+        }
+
+        .loading-text {
+            font-size: 1.125rem;
+        }
+
+        .flag-container {
+            margin-bottom: 1.5rem;
+        }
+    }
+</style>
+
+<script>
+    interface LanguageConfig {
+        flag: string;
+        text: string;
+    }
+
+    // Configuración de idiomas con sus banderas
+    const languageConfig: Record<string, LanguageConfig> = {
+        'es': { flag: '🇪🇸', text: 'Cambiando a Español...' },
+        'en': { flag: '🇺🇸', text: 'Switching to English...' }
+    };
+
+    // Función para mostrar el overlay
+    function showLanguageOverlay(targetLang: string): void {
+        const overlay = document.getElementById('language-overlay');
+        const flagElement = document.getElementById('overlay-flag');
+        const textElement = document.getElementById('overlay-text');
+
+        const config = languageConfig[targetLang];
+
+        if (config && overlay && flagElement && textElement) {
+            // Establecer el contenido
+            flagElement.textContent = config.flag;
+            textElement.textContent = config.text;
+
+            // Mostrar overlay
+            overlay.classList.add('show');
+
+            // Auto ocultar después de la navegación
+            setTimeout(() => {
+                hideLanguageOverlay();
+            }, 3000);
+        }
+    }
+
+    // Función para ocultar el overlay
+    function hideLanguageOverlay(): void {
+        const overlay = document.getElementById('language-overlay');
+        if (overlay) {
+            overlay.classList.remove('show');
+        }
+    }
+
+    // Hacer las funciones globales para uso externo
+    (window as any).showLanguageOverlay = showLanguageOverlay;
+    (window as any).hideLanguageOverlay = hideLanguageOverlay;
+
+    // Detectar clics en enlaces de cambio de idioma
+    document.addEventListener('DOMContentLoaded', function(): void {
+        // Buscar todos los enlaces de idioma
+        const languageLinks = document.querySelectorAll('a[href*="/es/"], a[href*="/en/"], a[href$="/es"], a[href$="/en"]');
+
+        languageLinks.forEach((link: Element) => {
+            link.addEventListener('click', function(this: HTMLAnchorElement, e: Event): void {
+                const href = this.getAttribute('href');
+                let targetLang = '';
+
+                if (!href) return;
+
+                // Detectar idioma objetivo
+                if (href.includes('/es/') || href.endsWith('/es')) {
+                    targetLang = 'es';
+                } else if (href.includes('/en/') || href.endsWith('/en')) {
+                    targetLang = 'en';
+                }
+
+                if (targetLang) {
+                    // Mostrar overlay antes de navegar
+                    showLanguageOverlay(targetLang);
+
+                    // Pequeño delay para mostrar la animación antes de navegar
+                    e.preventDefault();
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 500);
+                }
+            });
+        });
+    });
+
+    // Ocultar overlay si se hace clic fuera del contenido
+    document.addEventListener('click', function(e: Event): void {
+        const overlay = document.getElementById('language-overlay');
+        if (e.target === overlay) {
+            hideLanguageOverlay();
+        }
+    });
+</script>
