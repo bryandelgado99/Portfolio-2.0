@@ -4,19 +4,23 @@ import tailwind from '@astrojs/tailwind';
 
 import react from '@astrojs/react';
 
+import netlify from "@astrojs/netlify";
+
 // https://astro.build/config
 export default defineConfig({
-    i18n: {
-        locales: ["es", "en"],
-        defaultLocale: "es",
+  i18n: {
+      locales: ["es", "en"],
+      defaultLocale: "es",
 
-        routing: {
-            prefixDefaultLocale: true,
-        },
-    },
+      routing: {
+          prefixDefaultLocale: true,
+      },
+  },
 
-    integrations: [
-        tailwind(),
-        react(),
-    ]
+  integrations: [
+      tailwind(),
+      react(),
+  ],
+
+  adapter: netlify()
 });
