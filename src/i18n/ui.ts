@@ -127,6 +127,9 @@ export const ui = {
         'btn.previous': 'Anterior',
         'btn.close': 'Cerrar',
         'btn.loading': 'Cargando...',
+
+        //UI
+        "menu": "Menú"
     },
 
     en: {
@@ -250,5 +253,8 @@ export const ui = {
         'btn.previous': 'Previous',
         'btn.close': 'Close',
         'btn.loading': 'Loading...',
+
+        //UI
+        "menu": "Menu"
     }
 } as const;
