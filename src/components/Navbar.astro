@@ -1,66 +1,187 @@
 ---
 import LanguagePicker from "./LanguagePicker.astro";
 import {Menu, House, UserStar, X, BriefcaseBusiness, Globe} from '@lucide/astro';
+import { MdArrowRight } from "react-icons/md";
 import {getLangFromUrl, useTranslations} from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Ruta actual
+const currentPath = Astro.url.pathname;
 ---
 
-<!--Burguer Menu Mobile-->
-<button
-        id="mobileMenuButton"
-        class="md:hidden fixed top-6 right-4 z-50 p-2 bg-sage-50 dark:bg-sage-900 border border-sage-200 dark:border-sage-800 rounded-lg shadow-lg cursor-pointer hover:shadow-xl hover:bg-sage-100 dark:hover:bg-sage-800 transition-all duration-200"
->
-    <Menu class="w-6 h-6 text-sage-700 dark:text-sage-300"/>
-</button>
-
-<!--Navbar-->
-<nav class="w-full bg-sage-50 dark:bg-sage-950 shadow-sm border-b border-sage-200 dark:border-sage-800 px-4 md:px-6 lg:px-8 py-8">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
+<!--Navbar - Flotante en desktop, estático en mobile-->
+<nav class="
+    fixed top-0 left-0 right-0 z-50 w-full bg-sage-50/95 dark:bg-sage-950/95 backdrop-blur-md shadow-sm border-b border-sage-200/50 dark:border-sage-800/50 px-4 py-3
+    xl:top-4 xl:left-1/2 xl:transform xl:-translate-x-1/2 xl:w-auto xl:max-w-5xl xl:bg-sage-50/90 xl:dark:bg-sage-950/90 xl:shadow-lg xl:border xl:border-sage-200/40 xl:dark:border-sage-800/40 xl:rounded-full xl:px-8 xl:py-4 xl:transition-all xl:duration-300
+    2xl:max-w-6xl 2xl:px-10
+">
+    <div class="flex items-center justify-between 2xl:justify-between">
         <!--Logo-->
         <div class="flex-shrink-0">
-            <span class="text-xl md:text-2xl font-bold text-sage-950 dark:text-sage-100 hover:text-sage-600 dark:hover:text-sage-200 transition-colors duration-200">
+            <span class="text-lg md:text-xl font-bold text-sage-950 dark:text-sage-100 hover:text-sage-600 dark:hover:text-sage-200 transition-colors duration-200">
                 logo
             </span>
         </div>
 
-        <!--Items-->
-        <ul class="hidden md:flex items-center space-x-6 lg:space-x-8 flex-1 justify-center">
-            <li class="inline-flex justify-center items-center gap-x-3"><House size="16"/> {t("nav.home")}</li>
-            <li class="inline-flex justify-center items-center gap-x-3"><UserStar size="16"/> {t("nav.about")}</li>
-            <li class="inline-flex justify-center items-center gap-x-3"><BriefcaseBusiness size="16"/> {t("nav.portfolio")}</li>
-            <li class="inline-flex justify-center items-center gap-x-3"><Globe size="16"/> {t("nav.contact")}</li>
+        <!--Desktop Navigation Items (hidden on mobile/tablet)-->
+        <ul class="hidden 2xl:flex items-center space-x-8">
+            <li>
+                <a href="/" 
+                   class={`group inline-flex items-center gap-x-2 px-3 py-2 rounded-lg transition-all duration-200
+                   ${currentPath === "/" 
+                        ? "bg-sage-100 dark:bg-sage-800/50 text-sage-800 dark:text-sage-200 shadow-md" 
+                        : "hover:bg-sage-100 dark:hover:bg-sage-800/50 text-sage-800 dark:text-sage-300"}`}>
+                    <MdArrowRight 
+                      className={`w-3.5 h-3.5 transition-all duration-200 transform 
+                      ${currentPath === "/" 
+                        ? "opacity-100 translate-x-0" 
+                        : "opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"}`} />
+                    <House size="16"/> {t("nav.home")}
+                </a>
+            </li>
+            <li>
+                <a href="/about" 
+                   class={`group inline-flex items-center gap-x-2 px-3 py-2 rounded-lg transition-all duration-200
+                   ${currentPath === "/about" 
+                        ? "bg-sage-100 dark:bg-sage-800/50 text-sage-800 dark:text-sage-200 shadow-md" 
+                        : "hover:bg-sage-100 dark:hover:bg-sage-800/50 text-sage-800 dark:text-sage-300"}`}>
+                    <MdArrowRight 
+                      className={`w-3.5 h-3.5 transition-all duration-200 transform 
+                      ${currentPath === "/about" 
+                        ? "opacity-100 translate-x-0" 
+                        : "opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"}`} />
+                    <UserStar size="16"/> {t("nav.about")}
+                </a>
+            </li>
+            <li>
+                <a href="/portfolio" 
+                   class={`group inline-flex items-center gap-x-2 px-3 py-2 rounded-lg transition-all duration-200
+                   ${currentPath === "/portfolio" 
+                        ? "bg-sage-100 dark:bg-sage-800/50 text-sage-800 dark:text-sage-200 shadow-md" 
+                        : "hover:bg-sage-100 dark:hover:bg-sage-800/50 text-sage-800 dark:text-sage-300"}`}>
+                    <MdArrowRight 
+                      className={`w-3.5 h-3.5 transition-all duration-200 transform 
+                      ${currentPath === "/portfolio" 
+                        ? "opacity-100 translate-x-0" 
+                        : "opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"}`} />
+                    <BriefcaseBusiness size="16"/> {t("nav.portfolio")}
+                </a>
+            </li>
+            <li>
+                <a href="/contact" 
+                   class={`group inline-flex items-center gap-x-2 px-3 py-2 rounded-lg transition-all duration-200
+                   ${currentPath === "/contact" 
+                        ? "bg-sage-100 dark:bg-sage-800/50 text-sage-800 dark:text-sage-200 shadow-md" 
+                        : "hover:bg-sage-100 dark:hover:bg-sage-800/50 text-sage-800 dark:text-sage-300"}`}>
+                    <MdArrowRight 
+                      className={`w-3.5 h-3.5 transition-all duration-200 transform 
+                      ${currentPath === "/contact" 
+                        ? "opacity-100 translate-x-0" 
+                        : "opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"}`} />
+                    <Globe size="16"/> {t("nav.contact")}
+                </a>
+            </li>
         </ul>
-
-        <!--Language Picker - Solo desktop-->
-        <div class="hidden md:block flex-shrink-0">
+        
+        <!--Desktop Language Picker-->
+        <div class="hidden 2xl:block flex-shrink-0">
             <LanguagePicker/>
         </div>
+
+        <!--Mobile Menu Toggle Button-->
+        <button
+            id="mobileMenuToggle"
+            class="2xl:hidden p-2 rounded-lg bg-sage-100 dark:bg-sage-800 border border-sage-200 dark:border-sage-700 hover:bg-sage-200 dark:hover:bg-sage-700 transition-all duration-200 relative"
+            aria-label="Toggle mobile menu"
+        >
+            <Menu id="menuIcon" class="w-5 h-5 text-sage-700 dark:text-sage-300 transition-all duration-200"/>
+            <X id="closeIcon" class="w-5 h-5 text-sage-700 dark:text-sage-300 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 transition-all duration-200"/>
+        </button>
     </div>
 </nav>
 
 <!--Mobile Menu Overlay-->
 <div
-        id="mobileMenuOverlay"
-        class="md:hidden fixed inset-0 z-40 bg-sage-950 bg-opacity-50 backdrop-blur-sm opacity-0 invisible transition-all duration-300 ease-in-out"
+    id="mobileMenuOverlay"
+    class="2xl:hidden fixed inset-0 z-40 bg-sage-950/50 backdrop-blur-sm opacity-0 invisible transition-all duration-300 ease-in-out"
 >
     <div
-            id="mobileMenuSidebar"
-            class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-sage-50 dark:bg-sage-900 border-l border-sage-200 dark:border-sage-800 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out"
+        id="mobileMenuSidebar"
+        class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-sage-300 dark:bg-sage-900 border-l border-sage-200 dark:border-sage-800 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out"
     >
-        <div class="p-6 pt-16 bg-gradient-to-b from-sage-50 to-sage-100 dark:from-sage-900 dark:to-sage-950 h-full">
+        <div class="p-6 pt-8 h-full bg-gradient-to-b from-sage-100 to-sage-200 dark:from-sage-900 dark:to-sage-950">
+            
+        <!--Mobile Menu Items-->
+            <ul class="flex flex-col gap-y-4 py-6">
+                <li>
+                    <a href="/" 
+                       class={`group flex items-center gap-x-3 p-4 rounded-xl shadow-sm transition-all duration-200
+                       ${currentPath === "/" 
+                            ? "bg-sage-50 dark:bg-sage-700 text-sage-800 dark:text-sage-200 shadow-md" 
+                            : "bg-white dark:bg-sage-800 hover:shadow-md hover:bg-sage-50 dark:hover:bg-sage-700 text-sage-800 dark:text-sage-200"}`}>
+                        <MdArrowRight 
+                          className={`w-3.5 h-3.5 transition-all duration-200 transform 
+                          ${currentPath === "/" 
+                            ? "opacity-100 translate-x-0" 
+                            : "opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"}`} />
+                        <House size="20"/> 
+                        <span class="font-medium">{t("nav.home")}</span>
+                    </a>
+                </li>
 
-            <!--Mobile Menu Items-->
-            <ul class="flex flex-col justify-center items-start space-y-8 mb-8">
-                <li class="inline-flex place-content-center gap-x-3"><House size="24"/> {t("nav.home")}</li>
-                <li class="inline-flex place-content-center gap-x-3"><UserStar size="24"/> {t("nav.about")}</li>
-                <li class="inline-flex place-content-center gap-x-3"><BriefcaseBusiness size="24"/> {t("nav.portfolio")}</li>
-                <li class="inline-flex place-content-center gap-x-3"><Globe size="24"/> {t("nav.contact")}</li>
+                <li>
+                    <a href="/about" 
+                       class={`group flex items-center gap-x-3 p-4 rounded-xl shadow-sm transition-all duration-200
+                       ${currentPath === "/about" 
+                            ? "bg-sage-50 dark:bg-sage-700 text-sage-800 dark:text-sage-200 shadow-md" 
+                            : "bg-white dark:bg-sage-800 hover:shadow-md hover:bg-sage-50 dark:hover:bg-sage-700 text-sage-800 dark:text-sage-200"}`}>
+                        <MdArrowRight 
+                          className={`w-3.5 h-3.5 transition-all duration-200 transform 
+                          ${currentPath === "/about" 
+                            ? "opacity-100 translate-x-0" 
+                            : "opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"}`} />
+                        <UserStar size="20"/> 
+                        <span class="font-medium">{t("nav.about")}</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/portfolio" 
+                       class={`group flex items-center gap-x-3 p-4 rounded-xl shadow-sm transition-all duration-200
+                       ${currentPath === "/portfolio" 
+                            ? "bg-sage-50 dark:bg-sage-700 text-sage-800 dark:text-sage-200 shadow-md" 
+                            : "bg-white dark:bg-sage-800 hover:shadow-md hover:bg-sage-50 dark:hover:bg-sage-700 text-sage-800 dark:text-sage-200"}`}>
+                        <MdArrowRight 
+                          className={`w-3.5 h-3.5 transition-all duration-200 transform 
+                          ${currentPath === "/portfolio" 
+                            ? "opacity-100 translate-x-0" 
+                            : "opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"}`} />
+                        <BriefcaseBusiness size="20"/> 
+                        <span class="font-medium">{t("nav.portfolio")}</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/contact" 
+                       class={`group flex items-center gap-x-3 p-4 rounded-xl shadow-sm transition-all duration-200
+                       ${currentPath === "/contact" 
+                            ? "bg-sage-50 dark:bg-sage-700 text-sage-800 dark:text-sage-200 shadow-md" 
+                            : "bg-white dark:bg-sage-800 hover:shadow-md hover:bg-sage-50 dark:hover:bg-sage-700 text-sage-800 dark:text-sage-200"}`}>
+                        <MdArrowRight 
+                          className={`w-3.5 h-3.5 transition-all duration-200 transform 
+                          ${currentPath === "/contact" 
+                            ? "opacity-100 translate-x-0" 
+                            : "opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"}`} />
+                        <Globe size="20"/> 
+                        <span class="font-medium">{t("nav.contact")}</span>
+                    </a>
+                </li>
             </ul>
 
-            <!-- Language Picker en móvil -->
-            <div class="border-t border-sage-200 dark:border-sage-700 pt-6">
+            <!-- Mobile Language Picker -->
+            <div class="border-t border-sage-200 dark:border-sage-700 pt-6 mt-6">
                 <h3 class="text-sm font-medium text-sage-600 dark:text-sage-400 mb-3">{t("lang")}</h3>
                 <LanguagePicker/>
             </div>
@@ -68,49 +189,89 @@ const t = useTranslations(lang);
     </div>
 </div>
 
-<!--Styles not Tailwind-->
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
         const mobileMenuSidebar = document.getElementById('mobileMenuSidebar');
-        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
+
+        let isMenuOpen = false;
+
+        function toggleMobileMenu() {
+            if (isMenuOpen) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        }
 
         function openMobileMenu() {
+            isMenuOpen = true;
+            
+            // Show overlay and sidebar
             mobileMenuOverlay?.classList.remove('opacity-0', 'invisible');
             mobileMenuOverlay?.classList.add('opacity-100', 'visible');
             mobileMenuSidebar?.classList.remove('translate-x-full');
             mobileMenuSidebar?.classList.add('translate-x-0');
-            document.body.style.overflow = 'hidden'; // Prevenir scroll
+            
+            // Toggle icons
+            menuIcon?.classList.add('opacity-0', 'rotate-180', 'scale-75');
+            closeIcon?.classList.remove('opacity-0');
+            closeIcon?.classList.add('opacity-100', 'rotate-0', 'scale-100');
+            
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+            
+            // Update aria-label
+            mobileMenuToggle?.setAttribute('aria-label', 'Close mobile menu');
         }
 
-        function closeMobileMenuFn() {
+        function closeMobileMenu() {
+            isMenuOpen = false;
+            
+            // Hide overlay and sidebar
             mobileMenuOverlay?.classList.add('opacity-0', 'invisible');
             mobileMenuOverlay?.classList.remove('opacity-100', 'visible');
             mobileMenuSidebar?.classList.add('translate-x-full');
             mobileMenuSidebar?.classList.remove('translate-x-0');
-            document.body.style.overflow = ''; // Restaurar scroll
+            
+            // Toggle icons back
+            menuIcon?.classList.remove('opacity-0', 'rotate-180', 'scale-75');
+            closeIcon?.classList.add('opacity-0');
+            closeIcon?.classList.remove('opacity-100', 'rotate-0', 'scale-100');
+            
+            // Restore body scroll
+            document.body.style.overflow = '';
+            
+            // Update aria-label
+            mobileMenuToggle?.setAttribute('aria-label', 'Open mobile menu');
         }
 
-        // Abrir menú
-        mobileMenuButton?.addEventListener('click', openMobileMenu);
-
-        // Cerrar menú - botón X
-        closeMobileMenu?.addEventListener('click', closeMobileMenuFn);
-
-        // Cerrar menú - click en overlay
+        // Event listeners
+        mobileMenuToggle?.addEventListener('click', toggleMobileMenu);
+        
+        // Close menu when clicking on overlay
         mobileMenuOverlay?.addEventListener('click', function(e) {
             if (e.target === mobileMenuOverlay) {
-                closeMobileMenuFn();
+                closeMobileMenu();
             }
         });
 
-        // Cerrar menú con ESC
+        // Close menu with Escape key
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeMobileMenuFn();
+            if (e.key === 'Escape' && isMenuOpen) {
+                closeMobileMenu();
             }
+        });
+
+        // Close menu when clicking on menu links (for better UX)
+        const mobileMenuLinks = mobileMenuSidebar?.querySelectorAll('a');
+        mobileMenuLinks?.forEach(link => {
+            link.addEventListener('click', () => {
+                closeMobileMenu();
+            });
         });
     });
 </script>

@@ -1,3 +1,7 @@
+/* Importar las fuentes de Google */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+/* Importar Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -116,4 +120,96 @@
     transition-property: background-color, border-color, color, fill, stroke;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
+}
+
+/* Clases personalizadas para Rubik con pesos específicos */
+@layer components {
+  /* ENCABEZADOS */
+  .heading-xl {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 800;
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+  
+  .heading-lg {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    @apply text-3xl md:text-4xl;
+  }
+  
+  .heading-md {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+    @apply text-2xl md:text-3xl;
+  }
+  
+  .heading-sm {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    @apply text-xl md:text-2xl;
+  }
+  
+  .heading-xs {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    @apply text-lg md:text-xl;
+  }
+
+  /* LABELS Y FORMULARIOS */
+  .label-primary {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    @apply text-sm;
+  }
+  
+  .label-secondary {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    @apply text-sm;
+  }
+  
+  .label-bold {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+    @apply text-sm;
+  }
+
+  /* BOTONES */
+  .btn-text {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+  }
+  
+  .btn-text-light {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+  }
+
+  /* NAVEGACIÓN */
+  .nav-link {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+  }
+  
+  .nav-link-active {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+  }
+
+  /* TEXTO GENERAL CON NUNITO */
+  .body-text {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+  }
+  
+  .body-text-medium {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 500;
+  }
+  
+  .caption {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 300;
+    @apply text-sm;
+  }
 }

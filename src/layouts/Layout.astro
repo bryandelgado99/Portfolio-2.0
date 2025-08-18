@@ -15,10 +15,22 @@ const {title} = Astro.props;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title}</title>
+
 </head>
-<body>
+<body class="min-w-[400px] max-w-screen-3xl mx-auto">
     <Navbar/>
     <slot/>
     <LanguageSwitchOverlay/>
 </body>
 </html>
+
+<style>
+    body {
+        background-color: black
+    }
+    @media (max-width: 768px) {
+        body {
+            padding-top: 4rem; /* 64px - altura del navbar mobile */
+        }
+    }
+</style>

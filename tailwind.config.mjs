@@ -5,6 +5,42 @@ const config = {
     darkMode: 'class',
     theme: {
         extend: {
+            fontFamily: {
+                // Fuente para encabezados, títulos y labels
+                'rubik': ['Rubik', 'sans-serif'],
+                // Fuente para texto general
+                'nunito': ['Nunito', 'sans-serif'],
+                // Mantener las fuentes por defecto como fallback
+                'sans': ['Nunito', 'ui-sans-serif', 'system-ui'],
+                'display': ['Rubik', 'ui-sans-serif', 'system-ui']
+            },
+            // Configuración específica para diferentes elementos con Rubik
+            typography: {
+                'heading-1': {
+                    fontFamily: ['Rubik', 'sans-serif'],
+                    fontWeight: '800', // Extra Bold
+                },
+                'heading-2': {
+                    fontFamily: ['Rubik', 'sans-serif'],
+                    fontWeight: '700', // Bold
+                },
+                'heading-3': {
+                    fontFamily: ['Rubik', 'sans-serif'],
+                    fontWeight: '600', // SemiBold
+                },
+                'heading-4': {
+                    fontFamily: ['Rubik', 'sans-serif'],
+                    fontWeight: '500', // Medium
+                },
+                'label': {
+                    fontFamily: ['Rubik', 'sans-serif'],
+                    fontWeight: '500', // Medium
+                },
+                'button': {
+                    fontFamily: ['Rubik', 'sans-serif'],
+                    fontWeight: '600', // SemiBold
+                }
+            },
             colors: {
                 // Paleta 1: Verde Lima & Café Oscuro
                 sage: {
