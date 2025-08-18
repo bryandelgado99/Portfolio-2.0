@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import HeroComponent from "../../components/HeroComponent.astro";
+import Header from '../../components/composables/Header.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -8,11 +10,15 @@ const t = useTranslations(lang);
 export async function getStaticPaths() {
     return [
         { params: { locale: 'es' } },
-        { params: { locale: 'en' } },
+        { params: { locale: 'en' } }
     ];
 }
 ---
 
 <Layout title={t("web-home-title")}>
-    <p>{t("message")}</p>
+
+    <!-- Header -->
+    <Header />
+
+
 </Layout>
