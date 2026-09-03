@@ -99,7 +99,7 @@ export function ThemeToggle({
     const newTheme = !isDark;
 
     // Fallback for browsers that do not support View Transitions
-    if (!(document as any).startViewTransition) {
+    if (!(document as HTMLDocument).startViewTransition) {
       setIsDark(newTheme);
       if (newTheme) {
         document.documentElement.classList.add("dark");
@@ -110,7 +110,7 @@ export function ThemeToggle({
       return;
     }
 
-    const transition = (document as any).startViewTransition(() => {
+    const transition = (document as HTMLDocument).startViewTransition(() => {
       flushSync(() => {
         setIsDark(newTheme);
         if (newTheme) {
@@ -342,9 +342,9 @@ export function ThemeToggle({
       {...props}
     >
       {isDark ? (
-        <Sun className="h-5 w-5 text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
+        <Sun className="h-4 w-4 text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
       ) : (
-        <Moon className="h-5 w-5 text-red-600 drop-shadow-[0_0_8px_rgba(220,38,38,0.6)]" />
+        <Moon className="h-4 w-4 text-red-600 drop-shadow-[0_0_8px_rgba(220,38,38,0.6)]" />
       )}
     </button>
   );

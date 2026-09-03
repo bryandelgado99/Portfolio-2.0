@@ -77,9 +77,9 @@ export default function Header() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -100, opacity: 0, transition: { duration: 0.4 } }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4"
+          className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4"
         >
-          <div className="glass-panel w-full max-w-7xl rounded-[2rem] flex items-center justify-between px-6 py-4 shadow-xl">
+          <div className="glass-panel w-full max-w-7xl rounded-b-2xl flex items-center justify-between px-6 py-4 shadow-xl">
             {/* Logo */}
             <a
               onClick={() => handleScrollTo("#hero")}
@@ -125,7 +125,6 @@ export default function Header() {
             <div className="flex items-center gap-2">
               {/* Language Switcher */}
               <div className="flex items-center rounded-full glass-panel border border-foreground/10 p-1">
-                <Languages className="w-3.5 h-3.5 text-muted-foreground mx-1.5 hidden sm:block" />
                 {(["es", "en"] as const).map((code) => (
                   <button
                     key={code}
