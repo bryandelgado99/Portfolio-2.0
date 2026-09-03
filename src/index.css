@@ -1,0 +1,101 @@
+@import 'tailwindcss';
+@plugin 'lightswind/plugin';
+@theme {
+  --font-sans: "Google Sans Code Variable", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-fg);
+  --color-primary: var(--primary);
+  --color-primary-foreground: #ffffff;
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-fg);
+  --color-border: var(--border);
+}
+
+@layer base {
+  :root {
+    --bg: #f7f3f1;
+    --fg: #160b0d;
+    --card: #ffffff;
+    --card-fg: #160b0d;
+    --primary: #dc2626;
+    --muted: #f0e9e6;
+    --muted-fg: #5d4a4a;
+    --border: #e6dbd7;
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(22, 11, 13, 0.12);
+  }
+
+  .dark {
+    --bg: #090506;
+    --fg: #f5efed;
+    --card: #140b0d;
+    --card-fg: #f5efed;
+    --primary: #e11d48;
+    --muted: #241619;
+    --muted-fg: #b8a5a5;
+    --border: #2b1a1d;
+    --glass-bg: rgba(20, 11, 13, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.08);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    min-height: 100vh;
+  }
+
+  .dark body {
+    background-image: radial-gradient(circle at top right, rgba(225, 29, 72, 0.16) 0%, transparent 60%), radial-gradient(circle at bottom left, rgba(220, 38, 38, 0.08) 0%, transparent 50%);
+  }
+
+  /* View Transition API overrides for Lightswind ToggleTheme */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  ::selection {
+    background-color: rgba(225, 29, 72, 0.3);
+  }
+}
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--fg) 0%, var(--muted-fg) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-primary {
+  background: linear-gradient(135deg, #e11d48 0%, #f97316 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Título del hero: gradiente recortado al texto con fallback seguro */
+.text-gradient-crimson {
+  background: linear-gradient(90deg, #dc2626 0%, #e11d48 45%, #f97316 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #e11d48; /* color base (se usa si background-clip:text no se aplica) */
+}
+
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .text-gradient-crimson {
+    color: #e11d48;
+    -webkit-text-fill-color: currentColor;
+  }
+}

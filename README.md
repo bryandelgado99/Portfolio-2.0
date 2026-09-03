@@ -1,46 +1,46 @@
-# Astro Starter Kit: Basics
+# Paul Delgado | Portfolio
 
-```sh
-pnpm create astro@latest -- --template basics
+Portafolio personal de **Bryan Paul Delgado Yela** — Desarrollador de Software (Full Stack & Mobile).
+
+Construido con **React + TypeScript + Vite**, sobre el sistema de componentes **Lightswind UI**, con **Tailwind CSS v4**, **Framer Motion** (animaciones) y **Lenis** (scroll suave). Incluye tema claro/oscuro y **selector de idioma español/inglés**.
+
+## Contenido
+
+- **Hero** con foto y tarjeta colgante interactiva
+- **Sobre mí** con estadísticas
+- **Servicios** (desarrollo web, móvil, APIs/backend, UI/UX)
+- **Proyectos seleccionados** (WordyGo, Disnomia, Docentra, Pinlogy)
+- **Trayectoria profesional** (timeline con scroll)
+- **Educación y habilidades**
+- **Contacto** (email, teléfono, ubicación)
+- Footer con enlaces a redes y navegación
+
+## Comandos
+
+```bash
+npm install       # instalar dependencias
+npm run dev       # servidor de desarrollo (http://localhost:8080)
+npm run build     # build de producción (tsc -b && vite build)
+npm run preview   # previsualizar el build
+npm run lint      # eslint
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Estructura
 
 ```text
 /
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
+├── public/               # favicon y estáticos
+├── src/
+│   ├── assets/           # imágenes (foto, proyectos)
+│   ├── components/       # secciones + librería lightswind
+│   ├── data/content.ts   # contenido bilingüe es/en
+│   ├── i18n/             # contexto y hook de idioma
+│   ├── hooks/  lib/      # utilidades
+│   ├── App.tsx
+│   └── main.tsx
+├── index.html
+├── vite.config.ts
 └── package.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+> El contenido real proviene de `hoja-de-vida.md` (raíz). La carpeta `portfolio01/` se conserva como respaldo del proyecto original.
