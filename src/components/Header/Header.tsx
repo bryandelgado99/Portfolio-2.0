@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, type Variants, type MotionProps } from "framer-motion";
-import { Menu, X, Languages } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useLenis } from "lenis/react";
 
 import { ThemeToggle } from "../lightswind/theme-toggle";
